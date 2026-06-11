@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Blog Website
+Home
 {% endblock %}
 
 {% block body %}
-<style>
+ <style>
     *{
         margin:0;
         padding:0;
@@ -65,7 +65,7 @@ Blog Website
         <div class="logo">Blog Website</div>
         <div class="nav-links">
             <a href="/" class="create-btn">Home</a>
-            <a href="create/" class="create-btn">Create</a>
+            <a href={% url 'create_blog' %} class="create-btn">Create</a>
             <a href="login/" class="create-btn">Login</a>
             <a href="Register/" class="create-btn">Register</a>
             <a href="logout/" class="create-btn">Logout</a>
@@ -76,20 +76,15 @@ Blog Website
 
     <hr>
 <style>
-    body{
-        font-family: Arial, sans-serif;
-        background:#f4f4f4;
-        margin:0;
-        padding:20px;
+   
+    .container{
+        max-width:1000px;
+        margin:40px auto;
     }
 
     h1{
         text-align:center;
-    }
-
-    .container{
-        max-width:1000px;
-        margin:auto;
+        margin-bottom:30px;
     }
 
     .card{
@@ -98,44 +93,46 @@ Blog Website
         margin-bottom:20px;
         border-radius:10px;
         box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        transition:0.3s;
     }
 
-    .card h2{
-        margin-top:0;
+    .card:hover{
+        transform:translateY(-3px);
+    }
+
+    .title{
+        font-size:22px;
+        font-weight:bold;
     }
 
     .date{
+        font-size:12px;
         color:gray;
-        font-size:14px;
+        margin-bottom:10px;
+    }
+
+    .content{
+        margin-top:10px;
+        color:#444;
     }
 </style>
-
-<h1>My Blog Website</h1>
-
 <div class="container">
 
-{% for data in blogdata %}
+    <h1>My Blog Posts</h1>
 
-<div class="card">
+    {% for data in blogdata %}
 
-    <h2>{{ data.title }}</h2>
+        <div class="card">
+            <div class="title">{{ data.title }}</div>
+            <div class="date">{{ data.created }}</div>
+            <div class="content">{{ data.content }}</div>
+        </div>
 
-    <p class="date">
-        {{ data.created }}
-    </p>
-
-    <p>
-        {{ data.content }}
-    </p>
-
-</div>
-
-{% empty %}
-
-<h3>No blogs available.</h3>
-
-{% endfor %}
+    {% empty %}
+        <h3 style="text-align:center;">No blogs available</h3>
+    {% endfor %}
 
 </div>
 
 {% endblock %}
+
