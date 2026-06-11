@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Website</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+            padding:20px;
+        }
+        h1{
+            text-align:center;
+        }
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+        .card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card h2{
+            margin-top:0;
+        }
+        .date{
+            color:gray;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Blog Website</h1>
+
+    <div class="container">
+
+        {% for data in blogdata %}
+
+        <div class="card">
+
+            <h2>{{ data.title }}</h2>
+
+            <p class="date">
+                {{ data.created }}
+            </p>
+
+            <p>
+                {{ data.content }}
+            </p>
+
+        </div>
+
+        {% empty %}
+
+        <h3>No blogs available.</h3>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
