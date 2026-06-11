@@ -1,65 +1,141 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Blog Website</title>
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f4f4f4;
-            margin:0;
-            padding:20px;
-        }
-        h1{
-            text-align:center;
-        }
-        .container{
-            max-width:1000px;
-            margin:auto;
-        }
-        .card{
-            background:white;
-            padding:20px;
-            margin-bottom:20px;
-            border-radius:10px;
-            box-shadow:0 2px 8px rgba(0,0,0,0.1);
-        }
-        .card h2{
-            margin-top:0;
-        }
-        .date{
-            color:gray;
-            font-size:14px;
-        }
+{% extends 'base.html' %}
+
+{% block title %}
+Blog Website
+{% endblock %}
+
+{% block body %}
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f4f4;
+    }
+
+    nav{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:20px 50px;
+        background:white;
+        box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo{
+        font-size:28px;
+        font-weight:bold;
+    }
+
+    .nav-links{
+        display:flex;
+        align-items:center;
+        gap:25px;
+    }
+
+    .nav-links a{
+        text-decoration:none;
+        color:#333;
+        font-size:17px;
+        font-weight:500;
+        transition:0.3s;
+    }
+
+    .nav-links a:hover{
+        color:#2563eb;
+    }
+
+    .create-btn{
+        background:#2563eb;
+        color:white !important;
+        padding:10px 18px;
+        border-radius:6px;
+    }
+
+    .create-btn:hover{
+        background:#1d4ed8;
+    }
     </style>
-</head>
-<body>
-    <h1>My Blog Website</h1>
 
-    <div class="container">
-
-        {% for data in blogdata %}
-
-        <div class="card">
-
-            <h2>{{ data.title }}</h2>
-
-            <p class="date">
-                {{ data.created }}
-            </p>
-
-            <p>
-                {{ data.content }}
-            </p>
-
+    <nav>
+        <div class="logo">Blog Website</div>
+        <div class="nav-links">
+            <a href="/" class="create-btn">Home</a>
+            <a href="create/" class="create-btn">Create</a>
+            <a href="login/" class="create-btn">Login</a>
+            <a href="Register/" class="create-btn">Register</a>
+            <a href="logout/" class="create-btn">Logout</a>
         </div>
+    
 
-        {% empty %}
+    </nav>
 
-        <h3>No blogs available.</h3>
+    <hr>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f4f4;
+        margin:0;
+        padding:20px;
+    }
 
-        {% endfor %}
+    h1{
+        text-align:center;
+    }
 
-    </div>
+    .container{
+        max-width:1000px;
+        margin:auto;
+    }
 
-</body>
-</html>
+    .card{
+        background:white;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:10px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card h2{
+        margin-top:0;
+    }
+
+    .date{
+        color:gray;
+        font-size:14px;
+    }
+</style>
+
+<h1>My Blog Website</h1>
+
+<div class="container">
+
+{% for data in blogdata %}
+
+<div class="card">
+
+    <h2>{{ data.title }}</h2>
+
+    <p class="date">
+        {{ data.created }}
+    </p>
+
+    <p>
+        {{ data.content }}
+    </p>
+
+</div>
+
+{% empty %}
+
+<h3>No blogs available.</h3>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
