@@ -11,6 +11,7 @@ from django.contrib.auth import logout
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+from .forms import CommentForm
 # Create your views here.
 
 def BlogView(request):
@@ -53,9 +54,19 @@ def CreateBlog(request):
     
 
 def BlogDetails(request, pk):
-    blog = get_object_or_404(BlogModel, id=pk)
 
-    return render(request, 'blog/blog_detail.html', {'blog': blog})
+    blog = get_object_or_404(BlogModel, pk=pk)
+
+    form = CommentForm()
+
+    return render(
+        request,
+        'blog/blog_detail.html',
+        {
+            'blog': blog,
+            'form': form
+        }
+    )
 
 
 @login_required
@@ -137,3 +148,37 @@ def LoginView(request):
         form = AuthenticationForm()
 
     return render(request, 'blog/login.html', {'form': form})
+
+@login_required
+def AddComment(request, pk):
+
+    blog = get_object_or_404(BlogModel, pk=pk)
+
+    if request.method == 'POST':
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+
+            comment = form.save(commit=False)
+
+            comment.blog = blog
+            comment.user = request.user
+
+            comment.save()
+
+    return redirect('blog_detail', pk=pk)
+
+@login_required
+def MyBlogs(request):
+    blogs = BlogModel.objects.filter(
+        owner=request.user
+    ).order_by('-created')
+
+    return render(
+        request,
+        'blog/my_blogs.html',
+        {
+            'blogs': blogs
+        }
+    )

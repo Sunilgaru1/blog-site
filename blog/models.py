@@ -12,3 +12,22 @@ class BlogModel(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    blog = models.ForeignKey(
+        BlogModel,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    content = models.TextField()
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.blog.title}"

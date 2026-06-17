@@ -16,4 +16,6 @@ urlpatterns = [
     path('register/', views.RegisterView, name='register'),
     path('logout/', views.LogoutView, name='logout'),
     path('login/', views.LoginView, name='login'),
+    path('blog/<int:pk>/comment/',views.AddComment,name='add_comment'),
+    path('myblogs/',views.MyBlogs,name='my_blogs'),
 ]
