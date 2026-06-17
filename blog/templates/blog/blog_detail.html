@@ -8,7 +8,9 @@
 
     <h1>{{ blog.title }}</h1>
 
-    <p style="color:gray;">{{ blog.created }}</p>
+    <p style="color:gray;">
+        By {{ blog.owner.username }} • {{ blog.created }}
+    </p>
 
     <p style="margin-top:20px;">
         {{ blog.content }}
@@ -17,6 +19,8 @@
 </div>
 
 <div style="margin-top:30px; display:flex; gap:15px;">
+
+    {% if user == blog.owner or user.is_staff or user.is_superuser %}
 
     <a href="{% url 'edit_blog' blog.id %}"
        style="background:#2563eb; color:white; padding:10px 18px; text-decoration:none; border-radius:6px;">
@@ -27,6 +31,8 @@
        style="background:#dc2626; color:white; padding:10px 18px; text-decoration:none; border-radius:6px;">
         Delete
     </a>
+
+    {% endif %}
 
     <a href="{% url 'blog_list' %}"
        style="background:#6b7280; color:white; padding:10px 18px; text-decoration:none; border-radius:6px;">

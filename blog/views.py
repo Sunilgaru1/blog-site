@@ -14,9 +14,24 @@ from django.contrib.auth import login
 # Create your views here.
 
 def BlogView(request):
-    blogdata = BlogModel.objects.order_by('-created')
 
-    return render(request,'blog/blog_index.html',{'blogdata':blogdata})
+    query = request.GET.get('q')
+
+    if query:
+        blogdata = BlogModel.objects.filter(
+            title__icontains=query
+        ).order_by('-created')
+    else:
+        blogdata = BlogModel.objects.all().order_by('-created')
+
+    return render(
+        request,
+        'blog/blog_index.html',
+        {
+            'blogdata': blogdata,
+            'query': query
+        }
+    )
 
 @login_required
 def CreateBlog(request):

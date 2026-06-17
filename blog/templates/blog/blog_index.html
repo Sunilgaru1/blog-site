@@ -6,6 +6,7 @@ Home
 
 {% block body %}
 
+
 <style>
     *{
         margin:0;
@@ -139,6 +140,57 @@ Home
 
     </div>
 </nav>
+<style>
+    .search-container{
+        max-width:700px;
+        margin:30px auto;
+    }
+
+    .search-container form{
+        display:flex;
+        gap:10px;
+    }
+
+    .search-container input{
+        flex:1;
+        padding:12px;
+        border:1px solid #ddd;
+        border-radius:6px;
+    }
+
+    .search-container button{
+        padding:12px 20px;
+        border:none;
+        border-radius:6px;
+        background:#2563eb;
+        color:white;
+        cursor:pointer;
+    }
+</style>
+<div class="search-container">
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search blogs..."
+            value="{{ query|default:'' }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+</div>
+{% if query %}
+    <h3 style="text-align:center;">
+        Results for "{{ query }}"
+    </h3>
+{% endif %}
+
 
 <!-- BLOG LIST -->
 <div class="container">
