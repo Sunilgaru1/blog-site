@@ -5,7 +5,8 @@ Home
 {% endblock %}
 
 {% block body %}
- <style>
+
+<style>
     *{
         margin:0;
         padding:0;
@@ -17,6 +18,7 @@ Home
         background:#f4f4f4;
     }
 
+    /* NAVBAR */
     nav{
         display:flex;
         justify-content:space-between;
@@ -34,13 +36,13 @@ Home
     .nav-links{
         display:flex;
         align-items:center;
-        gap:25px;
+        gap:20px;
     }
 
     .nav-links a{
         text-decoration:none;
         color:#333;
-        font-size:17px;
+        font-size:16px;
         font-weight:500;
         transition:0.3s;
     }
@@ -49,36 +51,20 @@ Home
         color:#2563eb;
     }
 
-    .create-btn{
+    .btn{
         background:#2563eb;
         color:white !important;
-        padding:10px 18px;
+        padding:8px 14px;
         border-radius:6px;
     }
 
-    .create-btn:hover{
+    .btn:hover{
         background:#1d4ed8;
     }
-    </style>
 
-    <nav>
-        <div class="logo">Blog Website</div>
-        <div class="nav-links">
-            <a href="/" class="create-btn">Home</a>
-            <a href={% url 'create_blog' %} class="create-btn">Create</a>
-            <a href="login/" class="create-btn">Login</a>
-            <a href="Register/" class="create-btn">Register</a>
-            <a href="logout/" class="create-btn">Logout</a>
-        </div>
-    
-
-    </nav>
-
-    <hr>
-<style>
-   
+    /* BLOG SECTION */
     .container{
-        max-width:1000px;
+        max-width:900px;
         margin:40px auto;
     }
 
@@ -97,25 +83,46 @@ Home
     }
 
     .card:hover{
-        transform:translateY(-3px);
+        transform:translateY(-4px);
+    }
+
+    .title-link{
+        text-decoration:none;
+        color:inherit;
     }
 
     .title{
         font-size:22px;
         font-weight:bold;
+        color:#111;
+        margin-bottom:8px;
+    }
+
+    .title:hover{
+        color:#2563eb;
     }
 
     .date{
         font-size:12px;
         color:gray;
-        margin-bottom:10px;
     }
 
-    .content{
-        margin-top:10px;
-        color:#444;
-    }
 </style>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">Blog Website</div>
+
+    <div class="nav-links">
+        <a href="{% url 'blog_list' %}">Home</a>
+        <a href="{% url 'create_blog' %}" class="btn">Create</a>
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+        <a href="#">Logout</a>
+    </div>
+</nav>
+
+<!-- BLOG LIST -->
 <div class="container">
 
     <h1>My Blog Posts</h1>
@@ -123,9 +130,13 @@ Home
     {% for data in blogdata %}
 
         <div class="card">
-            <div class="title">{{ data.title }}</div>
+
+            <a href="{% url 'blog_detail' data.id %}" class="title-link">
+                <div class="title">{{ data.title }}</div>
+            </a>
+
             <div class="date">{{ data.created }}</div>
-            <div class="content">{{ data.content }}</div>
+
         </div>
 
     {% empty %}
@@ -135,4 +146,3 @@ Home
 </div>
 
 {% endblock %}
-

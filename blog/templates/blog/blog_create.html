@@ -43,6 +43,20 @@ Create Blog
         border:1px solid #ddd;
         border-radius:6px;
     }
+
+    .back-btn{
+        display:block;
+        text-align:center;
+        margin-top:15px;
+        text-decoration:none;
+        color:#2563eb;
+        font-weight:500;
+        transition:0.3s;
+    }
+
+    .back-btn:hover{
+        color:#1d4ed8;
+    }
 </style>
 
 <div class="form-container">
@@ -56,6 +70,8 @@ Create Blog
 
         <button type="submit">Publish</button>
     </form>
+
+    <a href="{% url 'blog_list' %}" class="back-btn">← Back to Home</a>
 
 </div>
 
